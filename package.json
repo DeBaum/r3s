@@ -13,8 +13,41 @@
   ],
   "author": "DeBaum",
   "license": "ISC",
+  "scripts": {
+    "demo:run": "concurrently \"npm run demo:watch\" \"npm run demo:serve\"",
+    "demo:watch": "watchify demo/init.js -v -d -t babelify --outfile demo/bundle.js",
+    "demo:serve": "static demo",
+    "prebuild:debug": "mkdir dist",
+    "build:debug": "browserify src/r3s.js -d -t babelify --outfile dist/r3s.js",
+    "build": "npm run build:debug",
+    "postbuild": "uglifyjs dist/r3s.js -o dist/r3s.js -c -m"
+  },
   "bugs": {
     "url": "https://github.com/DeBaum/r3s/issues"
   },
-  "homepage": "https://github.com/DeBaum/r3s#readme"
+  "homepage": "https://github.com/DeBaum/r3s#readme",
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "dependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "lodash.at": "^4.6.0",
+    "lodash.find": "^4.6.0",
+    "lodash.remove": "^4.7.0",
+    "uglify-js": "^2.7.3"
+  },
+  "devDependencies": {
+    "react": "^15.3.1",
+    "concurrently": "^2.2.0",
+    "node-static": "^0.7.8",
+    "react-dom": "^15.3.1",
+    "watchify": "^3.7.0"
+  }
 }
